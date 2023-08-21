@@ -40,7 +40,9 @@
           <NuxtLink v-if="!isAuthentication" to="/sign" tag="b-dropdown-item"
             >Sign In</NuxtLink
           >
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item v-if="isAuthentication" href="#"
+            >Profile</b-dropdown-item
+          >
           <b-dropdown-item v-if="isAuthentication" href="#" @click="signOut()"
             >Sign Out</b-dropdown-item
           >
@@ -60,7 +62,9 @@ export default {
     }),
   },
   methods: {
-    signOut() {},
+    signOut() {
+      this.$store.dispatch('member/signOut')
+    },
   },
 }
 </script>

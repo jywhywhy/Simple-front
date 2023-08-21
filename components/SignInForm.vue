@@ -1,6 +1,6 @@
 <template>
   <div class="form-signin w-100 mx-auto mt-5">
-    <form @submit.prevent="signIn()">
+    <form @submit.prevent="signIn">
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
       <div class="form-floating">
@@ -24,32 +24,24 @@
         <label for="floatingPassword">Password</label>
       </div>
 
-      <div class="form-check text-start my-3">
-        <input
-          id="flexCheckDefault"
-          class="form-check-input"
-          type="checkbox"
-          value="remember-me"
-        />
-        <label class="form-check-label" for="flexCheckDefault">
-          Remember me
-        </label>
-      </div>
+      <NuxtLink to="/sign/up">Sign Up</NuxtLink>
       <button class="btn btn-primary w-100 py-2">Sign in</button>
     </form>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'SignInForm',
   computed: {
     username: {
       get() {
-        return this.$store.state.member.signInForm.username
+        return this.$store.state.member.signForm.username
       },
       set(value) {
         this.$store.commit('member/updateItem', {
-          field: 'signInForm',
+          field: 'signForm',
           subField: 'username',
           value,
         })
@@ -57,11 +49,11 @@ export default {
     },
     password: {
       get() {
-        return this.$store.state.member.signInForm.password
+        return this.$store.state.member.signForm.password
       },
       set(value) {
         this.$store.commit('member/updateItem', {
-          field: 'signInForm',
+          field: 'signForm',
           subField: 'password',
           value,
         })
@@ -69,9 +61,9 @@ export default {
     },
   },
   methods: {
-    signIn() {
-      this.$store.dispatch('member/signIn')
-    },
+    ...mapActions({
+      signIn: 'member/signIn',
+    }),
   },
 }
 </script>

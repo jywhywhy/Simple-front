@@ -10,7 +10,7 @@ import TopNav from '../components/TopNav.vue'
 
 export default {
   components: { TopNav },
-  mounted() {
+  beforeCreate() {
     this.$store.dispatch('member/authentication')
   },
 }

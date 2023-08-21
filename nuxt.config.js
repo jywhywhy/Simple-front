@@ -44,7 +44,7 @@ export default {
   },
   proxy: {
     '/api': {
-      target: 'http://localhost:9090',
+      target: 'http://localhost:90',
     },
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
