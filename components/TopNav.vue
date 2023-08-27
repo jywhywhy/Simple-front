@@ -8,7 +8,7 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">테스트링크</b-nav-item>
+        <NuxtLink to="/board/list" tag="b-nav-item">게시판</NuxtLink>
         <b-nav-item href="#" disabled>Disabled</b-nav-item>
       </b-navbar-nav>
 

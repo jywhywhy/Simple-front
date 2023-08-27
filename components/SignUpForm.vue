@@ -6,12 +6,13 @@
 
     <div class="row g-5">
       <div class="col-12">
-        <form class="needs-validation" novalidate @submit.prevent="signUp">
+        <form class="needs-validation" novalidate @submit.prevent="signUp()">
           <div class="row g-3">
             <div class="col-12">
               <label for="name" class="form-label">Name</label>
               <input
                 id="name"
+                ref="mName"
                 v-model="mName"
                 type="text"
                 class="form-control"
@@ -27,6 +28,7 @@
               <div class="input-group has-validation">
                 <input
                   id="username"
+                  ref="username"
                   v-model="username"
                   type="email"
                   class="form-control"
@@ -42,6 +44,7 @@
               <div class="input-group has-validation">
                 <input
                   id="password"
+                  ref="password"
                   v-model="password"
                   type="password"
                   class="form-control"
@@ -61,7 +64,6 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
 export default {
   name: 'SignUpForm',
   computed: {
@@ -103,13 +105,34 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      signUp: 'member/signUp',
-    }),
+    signUp() {
+      const mNameExp = /^[가-힣]{1,12}$/
+      const usernameExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      const passwordExp =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+      if (!mNameExp.test(this.mName)) {
+        alert('닉네임은 12글자 이하의 한글로만 입력해주세요.')
+        this.$refs.mName.focus()
+        return
+      }
+      if (!usernameExp.test(this.username)) {
+        alert('유효한 이메일 주소를 입력해주세요.')
+        this.$refs.username.focus()
+        return
+      }
+      if (!passwordExp.test(this.password)) {
+        alert(
+          '비밀번호는 최소 8자 이상이어야 하며, 알파벳, 숫자, 특수 문자를 포함해야 합니다.'
+        )
+        this.$refs.password.focus()
+        return
+      }
+      this.$store.dispatch('member/signUp')
+    },
   },
 }
 </script>
-<style>
+<style scoped>
 .container {
   max-width: 500px;
 }

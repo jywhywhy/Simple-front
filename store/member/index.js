@@ -23,6 +23,14 @@ export const actions = {
       .post('/api/member/signIn', state.signForm)
       .then((res) => {
         commit('updateItem', {
+          field: 'signForm',
+          value: {
+            username: '',
+            password: '',
+            mName: '',
+          },
+        })
+        commit('updateItem', {
           field: 'isAuthentication',
           value: true,
         })
@@ -62,6 +70,14 @@ export const actions = {
     await this.$axios
       .post('/api/member/signUp', state.signForm)
       .then((res) => {
+        commit('updateItem', {
+          field: 'signForm',
+          value: {
+            username: '',
+            password: '',
+            mName: '',
+          },
+        })
         alert('회원가입 완료')
         this.$router.push('/sign')
       })

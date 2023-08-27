@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="container">
+    <h1 class="text-center">메인</h1>
+  </div>
 </template>
 
 <script>
