@@ -26,7 +26,7 @@
         <label for="floatingPassword">Password</label>
       </div>
 
-      <NuxtLink to="/sign/up">Sign Up</NuxtLink>
+      <NuxtLink :to="{ name: 'sign-up' }">Sign Up</NuxtLink>
       <button class="btn btn-primary w-100 py-2">Sign in</button>
     </form>
   </div>
@@ -37,25 +37,25 @@ export default {
   computed: {
     username: {
       get() {
-        return this.$store.state.member.signForm.username
+        return this.$store.getters['member/getItem'].signForm.username
       },
-      set(value) {
-        this.$store.commit('member/updateItem', {
+      set(item) {
+        this.$store.commit('member/setItem', {
           field: 'signForm',
           subField: 'username',
-          value,
+          item,
         })
       },
     },
     password: {
       get() {
-        return this.$store.state.member.signForm.password
+        return this.$store.getters['member/getItem'].signForm.password
       },
-      set(value) {
-        this.$store.commit('member/updateItem', {
+      set(item) {
+        this.$store.commit('member/setItem', {
           field: 'signForm',
           subField: 'password',
-          value,
+          item,
         })
       },
     },

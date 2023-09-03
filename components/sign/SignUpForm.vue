@@ -11,9 +11,9 @@
             <div class="col-12">
               <label for="name" class="form-label">Name</label>
               <input
-                id="name"
-                ref="mName"
-                v-model="mName"
+                id="mname"
+                ref="mname"
+                v-model="mname"
                 type="text"
                 class="form-control"
                 placeholder="name"
@@ -67,52 +67,52 @@
 export default {
   name: 'SignUpForm',
   computed: {
-    mName: {
+    mname: {
       get() {
-        return this.$store.state.member.signForm.mName
+        return this.$store.getters['member/getItem'].signForm.mname
       },
-      set(value) {
-        this.$store.commit('member/updateItem', {
+      set(item) {
+        this.$store.commit('member/setItem', {
           field: 'signForm',
-          subField: 'mName',
-          value,
+          subField: 'mname',
+          item,
         })
       },
     },
     username: {
       get() {
-        return this.$store.state.member.signForm.username
+        return this.$store.getters['member/getItem'].signForm.username
       },
-      set(value) {
-        this.$store.commit('member/updateItem', {
+      set(item) {
+        this.$store.commit('member/setItem', {
           field: 'signForm',
           subField: 'username',
-          value,
+          item,
         })
       },
     },
     password: {
       get() {
-        return this.$store.state.member.signForm.password
+        return this.$store.getters['member/getItem'].signForm.password
       },
-      set(value) {
-        this.$store.commit('member/updateItem', {
+      set(item) {
+        this.$store.commit('member/setItem', {
           field: 'signForm',
           subField: 'password',
-          value,
+          item,
         })
       },
     },
   },
   methods: {
-    signUp() {
-      const mNameExp = /^[가-힣]{1,12}$/
+    async signUp() {
+      const mnameExp = /^[가-힣]{1,12}$/
       const usernameExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       const passwordExp =
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-      if (!mNameExp.test(this.mName)) {
+      if (!mnameExp.test(this.mname)) {
         alert('닉네임은 12글자 이하의 한글로만 입력해주세요.')
-        this.$refs.mName.focus()
+        this.$refs.mname.focus()
         return
       }
       if (!usernameExp.test(this.username)) {
@@ -127,7 +127,7 @@ export default {
         this.$refs.password.focus()
         return
       }
-      this.$store.dispatch('member/signUp')
+      await this.$store.dispatch('member/signUp')
     },
   },
 }

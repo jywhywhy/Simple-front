@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SignInForm from '../../../components/SignInForm.vue'
+import SignInForm from '../../../components/sign/SignInForm.vue'
 
 export default {
   components: { SignInForm },

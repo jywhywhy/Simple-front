@@ -1,41 +1,44 @@
 export const state = () => ({
-  signForm: {
-    username: '',
-    password: '',
-    mName: '',
+  item: {
+    signForm: {
+      username: '',
+      password: '',
+      mname: '',
+    },
+    isAuthentication: '',
   },
-  isAuthentication: '',
 })
 
 export const getters = {
-  getIsAuthentication: (state) => state.isAuthentication,
+  getItem: (state) => state.item,
+  getIsAuthentication: (state) => state.item.isAuthentication,
 }
 
 export const mutations = {
-  updateItem(state, { field, subField, value }) {
-    subField ? (state[field][subField] = value) : (state[field] = value)
+  setItem(state, { field, subField, item }) {
+    subField ? (state.item[field][subField] = item) : (state.item[field] = item)
   },
 }
 
 export const actions = {
-  async signIn({ commit, state }) {
+  async signIn({ commit, getters }) {
     await this.$axios
-      .post('/api/member/signIn', state.signForm)
+      .post('/api/member/signIn', getters.getItem.signForm)
       .then((res) => {
-        commit('updateItem', {
+        commit('setItem', {
           field: 'signForm',
-          value: {
+          item: {
             username: '',
             password: '',
-            mName: '',
+            mname: '',
           },
         })
-        commit('updateItem', {
+        commit('setItem', {
           field: 'isAuthentication',
-          value: true,
+          item: true,
         })
         sessionStorage.setItem('mId', res.data.mid)
-        alert('환영합니다')
+        alert('로그인 성공')
         this.$router.push('/')
       })
       .catch((e) => {
@@ -45,40 +48,40 @@ export const actions = {
   async authentication({ commit }) {
     if (typeof window !== 'undefined') {
       if (sessionStorage.getItem('mId') > 0) {
-        await commit('updateItem', {
+        await commit('setItem', {
           field: 'isAuthentication',
-          value: true,
+          item: true,
         })
       } else {
-        await commit('updateItem', {
+        await commit('setItem', {
           field: 'isAuthentication',
-          value: false,
+          item: false,
         })
       }
     }
   },
   async signOut({ commit }) {
-    await commit('updateItem', {
+    await commit('setItem', {
       field: 'isAuthentication',
-      value: false,
+      item: false,
     })
     sessionStorage.removeItem('mId')
-    alert('로그아웃')
+    alert('로그아웃 성공')
     this.$router.push('/')
   },
-  async signUp({ state, commit }) {
+  async signUp({ commit, getters }) {
     await this.$axios
-      .post('/api/member/signUp', state.signForm)
-      .then((res) => {
-        commit('updateItem', {
+      .post('/api/member/signUp', getters.getItem.signForm)
+      .then(() => {
+        commit('setItem', {
           field: 'signForm',
-          value: {
+          item: {
             username: '',
             password: '',
             mName: '',
           },
         })
-        alert('회원가입 완료')
+        alert('회원가입 성공')
         this.$router.push('/sign')
       })
       .catch((e) => {
