@@ -28,11 +28,17 @@
             @change="addFile($event)"
           ></b-form-file>
         </div>
-    <button class="btn btn-success">작성</button>
+    <button class="btn btn-success">{{ buttonName }}</button>
   </form>
 </template>
 <script>
 export default {
+  props: {
+    type: {
+      type: String,
+      default: ''
+    },
+  },
   computed: {
     btitle: {
       get() {
@@ -58,6 +64,23 @@ export default {
         })
       },
     },
+    buttonName() {
+      switch (this.type) {
+        case 'write':
+          return '등록'
+        case 'update':
+          return '수정'
+        default:
+          return ''
+      }
+    },
+  },
+  mounted() {
+    this.$store.commit('board/setItem', {
+      field: 'boardForm',
+      subField: 'files',
+      item: [],
+    })
   },
   methods: {
     write() {
@@ -71,15 +94,15 @@ export default {
         this.$refs.bcontent.focus()
         return
       }
-      this.$store.dispatch('board/write')
+      this.$store.dispatch(`board/${this.type}`)
     },
-    // addFile(e) {
-    //   this.$store.commit('board/setItem', {
-    //     field: 'boardForm',
-    //     subField: 'file',
-    //     item: [e.target.files[0], ...this.$store.getters["board/getItem"].boardForm.files]
-    //   })
-    // },
-  },
+    addFile(e) {
+      this.$store.commit('board/setItem', {
+        field: 'boardForm',
+        subField: 'files',
+        item: [e.target.files[0], ...this.$store.getters["board/getItem"].boardForm.files]
+      })
+    },
+  }
 }
 </script>

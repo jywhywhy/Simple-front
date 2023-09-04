@@ -78,7 +78,7 @@ export const actions = {
           item: {
             username: '',
             password: '',
-            mName: '',
+            mname: '',
           },
         })
         alert('회원가입 성공')

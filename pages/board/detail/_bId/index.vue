@@ -30,16 +30,7 @@ export default {
     })
   },
   destroyed() {
-    this.$store.commit('board/setItem', {
-      field: 'boardForm',
-      subField: 'btitle',
-      item: '',
-    })
-    this.$store.commit('board/setItem', {
-      field: 'boardForm',
-      subField: 'bcontent',
-      item: '',
-    })
+
   },
 }
 </script>

@@ -1,9 +1,10 @@
 export const state = () => ({
   item: {
     boardForm: {
+      bid: '',
       btitle: '',
       bcontent: '',
-      // files: []
+      files: []
     },
   },
   list: [],
@@ -31,7 +32,7 @@ export const actions = {
     formData.append('mId', sessionStorage.getItem('mId'))
     formData.append('bTitle', boardForm.btitle)
     formData.append('bContent', boardForm.bcontent)
-    // formData.append('files', boardForm.files)
+    boardForm.files.forEach((file) => formData.append('files', file))
     this.$axios
       .post('/api/board/write', formData, {
         headers: {
@@ -50,6 +51,11 @@ export const actions = {
           subField: 'bcontent',
           item: '',
         })
+        commit('setItem', {
+          field: 'boardForm',
+          subField: 'files',
+          item: [],
+        })
         this.$router.push('/board/list')
       })
       .catch((e) => {
@@ -64,7 +70,6 @@ export const actions = {
       })
       .catch((e) => {
         alert('게시물 없음')
-        this.$router.push('/')
       })
   },
   async setItem({ commit }, bId) {
@@ -77,5 +82,53 @@ export const actions = {
         })
       })
       .catch((e) => {})
+  },
+  delete({commit}, bId) {
+    this.$axios.delete(`/api/board/delete/${bId}`)
+      .then((res) => {
+        alert('삭제성공')
+        this.$router.push('/board/list')
+      })
+      .catch((e) => {
+        alert('삭제실패')
+      })
+  },
+  update({ getters, commit }) {
+    const boardForm = getters.getItem.boardForm
+    const formData = new FormData()
+    formData.append('bId', boardForm.bid)
+    alert(boardForm.bid)
+    formData.append('mId', sessionStorage.getItem('mId'))
+    formData.append('bTitle', boardForm.btitle)
+    formData.append('bContent', boardForm.bcontent)
+    boardForm.files.forEach((file) => formData.append('files', file))
+    this.$axios
+      .put('/api/board/update', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        alert('글작성 성공')
+        commit('setItem', {
+          field: 'boardForm',
+          subField: 'btitle',
+          item: '',
+        })
+        commit('setItem', {
+          field: 'boardForm',
+          subField: 'bcontent',
+          item: '',
+        })
+        commit('setItem', {
+          field: 'boardForm',
+          subField: 'files',
+          item: [],
+        })
+        this.$router.push(`/board/detail/${boardForm.bid}`)
+      })
+      .catch((e) => {
+        alert('글작성 실패')
+      })
   },
 }
