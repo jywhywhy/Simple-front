@@ -2,6 +2,7 @@ export const state = () => ({
   item: {
     boardForm: {
       bid: '',
+      mid: '',
       btitle: '',
       bcontent: '',
       files: []
@@ -14,6 +15,8 @@ export const getters = {
   getList: (state) => state.list,
   getItem: (state) => state.item,
   getItemBoardForm: (state) => state.item.boardForm,
+  // eslint-disable-next-line eqeqeq
+  isWriter: (state) => state.item.boardForm.mid == sessionStorage.getItem('mId')
 }
 
 export const mutations = {
@@ -23,16 +26,34 @@ export const mutations = {
   setItem(state, { field, subField, item }) {
     subField ? (state.item[field][subField] = item) : (state.item[field] = item)
   },
+  initItem(state, item) {
+    state.item = item
+  },
+
 }
 
 export const actions = {
-  write({ getters, commit }) {
+  async initItem({ commit }) {
+    await commit('initItem', {
+      boardForm: {
+        bid: '',
+        mid: '',
+        btitle: '',
+        bcontent: '',
+        files: []
+      }
+    })
+  }
+  ,
+  write({ getters, dispatch }) {
     const boardForm = getters.getItem.boardForm
     const formData = new FormData()
     formData.append('mId', sessionStorage.getItem('mId'))
     formData.append('bTitle', boardForm.btitle)
     formData.append('bContent', boardForm.bcontent)
-    boardForm.files.forEach((file) => formData.append('files', file))
+    if (boardForm.files.length > 0) {
+      boardForm.files.forEach((file) => formData.append('files', file))
+    }
     this.$axios
       .post('/api/board/write', formData, {
         headers: {
@@ -41,21 +62,7 @@ export const actions = {
       })
       .then((res) => {
         alert('글작성 성공')
-        commit('setItem', {
-          field: 'boardForm',
-          subField: 'btitle',
-          item: '',
-        })
-        commit('setItem', {
-          field: 'boardForm',
-          subField: 'bcontent',
-          item: '',
-        })
-        commit('setItem', {
-          field: 'boardForm',
-          subField: 'files',
-          item: [],
-        })
+        dispatch('initItem')
         this.$router.push('/board/list')
       })
       .catch((e) => {
@@ -81,19 +88,21 @@ export const actions = {
           item: res.data,
         })
       })
-      .catch((e) => {})
+      .catch((e) => {
+        alert('정보 없음')
+      })
   },
   delete({commit}, bId) {
     this.$axios.delete(`/api/board/delete/${bId}`)
       .then((res) => {
-        alert('삭제성공')
+        alert('글삭제 성공')
         this.$router.push('/board/list')
       })
       .catch((e) => {
-        alert('삭제실패')
+        alert('글삭제 실패')
       })
   },
-  update({ getters, commit }) {
+  update({ getters, dispatch }) {
     const boardForm = getters.getItem.boardForm
     const formData = new FormData()
     formData.append('bId', boardForm.bid)
@@ -109,26 +118,12 @@ export const actions = {
         },
       })
       .then((res) => {
-        alert('글작성 성공')
-        commit('setItem', {
-          field: 'boardForm',
-          subField: 'btitle',
-          item: '',
-        })
-        commit('setItem', {
-          field: 'boardForm',
-          subField: 'bcontent',
-          item: '',
-        })
-        commit('setItem', {
-          field: 'boardForm',
-          subField: 'files',
-          item: [],
-        })
+        alert('글수정 성공')
+        dispatch('initItem')
         this.$router.push(`/board/detail/${boardForm.bid}`)
       })
       .catch((e) => {
-        alert('글작성 실패')
+        alert('글수정 실패')
       })
   },
 }

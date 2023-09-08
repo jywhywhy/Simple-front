@@ -5,6 +5,7 @@ export const state = () => ({
       mid: '',
       rcontent: '',
       rparentId: '',
+      rdept: 0,
     },
   },
   list: [],
@@ -22,9 +23,23 @@ export const mutations = {
   setItem(state, { field, subField, item }) {
     subField ? (state.item[field][subField] = item) : (state.item[field] = item)
   },
+  initItem(state, item) {
+    state.item = item
+  },
 }
 
 export const actions = {
+  initItem({ commit }) {
+    commit('initItem', {
+      replyForm: {
+        bid: '',
+        mid: '',
+        rcontent: '',
+        rparentId: '',
+        rdept: 0,
+      },
+    })
+  },
   async setList({ commit, getters }, bId) {
     await this.$axios
       .get(`/api/reply/list/${bId}`)
@@ -33,7 +48,7 @@ export const actions = {
       })
       .catch((e) => {})
   },
-  write({ commit, getters, dispatch }) {
+  write({ getters, commit, dispatch }) {
     const item = getters.getItem.replyForm
     this.$axios
       .post('/api/reply/write', item)
@@ -42,17 +57,17 @@ export const actions = {
         commit('setItem', {
           field: 'replyForm',
           subField: 'rcontent',
-          item: '',
-        })
-        commit('setItem', {
-          field: 'replyForm',
-          subField: 'rdept',
-          item: '',
+          item: ''
         })
         commit('setItem', {
           field: 'replyForm',
           subField: 'rparentId',
-          item: '',
+          item: ''
+        })
+        commit('setItem', {
+          field: 'replyForm',
+          subField: 'rdept',
+          item: 0
         })
         dispatch('setList', item.bid)
       })

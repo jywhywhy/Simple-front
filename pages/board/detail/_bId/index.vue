@@ -15,7 +15,6 @@ export default {
     const { bId } = params
     await store.dispatch('board/setItem', bId)
     await store.dispatch('reply/setList', bId)
-
     await store.commit('reply/setItem', {
       field: 'replyForm',
       subField: 'bid',
@@ -28,9 +27,6 @@ export default {
       subField: 'mid',
       item: sessionStorage.getItem('mId'),
     })
-  },
-  destroyed() {
-
   },
 }
 </script>

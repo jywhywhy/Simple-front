@@ -19,19 +19,21 @@
       class="form-control"
       placeholder="내용을 입력하세요."
     />
-        <div>
-          <!-- Styled -->
-          <b-form-file
-            class="my-3"
-            placeholder="Choose a file or drop it here..."
-            drop-placeholder="Drop file here..."
-            @change="addFile($event)"
-          ></b-form-file>
-        </div>
+    <div>
+      <!-- Styled -->
+      <b-form-file
+        class="my-3"
+        placeholder="Choose a file or drop it here..."
+        drop-placeholder="Drop file here..."
+        @change="addFile($event)"
+      ></b-form-file>
+    </div>
     <button class="btn btn-success">{{ buttonName }}</button>
   </form>
 </template>
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   props: {
     type: {
@@ -79,7 +81,7 @@ export default {
     this.$store.commit('board/setItem', {
       field: 'boardForm',
       subField: 'files',
-      item: [],
+      item: []
     })
   },
   methods: {
