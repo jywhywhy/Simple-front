@@ -31,7 +31,7 @@ export const actions = {
         password: '',
         mname: '',
       },
-      isAuthentication: false
+      isAuthentication: false,
     })
   },
   async signIn({ getters, dispatch, commit }) {

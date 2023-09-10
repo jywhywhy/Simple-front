@@ -5,8 +5,9 @@ export const state = () => ({
       mid: '',
       btitle: '',
       bcontent: '',
-      files: []
+      files: [],
     },
+    isWriter: ''
   },
   list: [],
 })
@@ -15,8 +16,7 @@ export const getters = {
   getList: (state) => state.list,
   getItem: (state) => state.item,
   getItemBoardForm: (state) => state.item.boardForm,
-  // eslint-disable-next-line eqeqeq
-  isWriter: (state) => state.item.boardForm.mid == sessionStorage.getItem('mId')
+  isWriter: (state) => state.item.isWriter
 }
 
 export const mutations = {
@@ -29,7 +29,6 @@ export const mutations = {
   initItem(state, item) {
     state.item = item
   },
-
 }
 
 export const actions = {
@@ -40,11 +39,10 @@ export const actions = {
         mid: '',
         btitle: '',
         bcontent: '',
-        files: []
-      }
+        files: [],
+      },
     })
-  }
-  ,
+  },
   write({ getters, dispatch }) {
     const boardForm = getters.getItem.boardForm
     const formData = new FormData()
@@ -92,8 +90,9 @@ export const actions = {
         alert('정보 없음')
       })
   },
-  delete({commit}, bId) {
-    this.$axios.delete(`/api/board/delete/${bId}`)
+  delete({ commit }, bId) {
+    this.$axios
+      .delete(`/api/board/delete/${bId}`)
       .then((res) => {
         alert('글삭제 성공')
         this.$router.push('/board/list')
@@ -125,5 +124,20 @@ export const actions = {
       .catch((e) => {
         alert('글수정 실패')
       })
+  },
+  async writer({ state, commit }) {
+    if (typeof window !== 'undefined') {
+      if (String(state.item.boardForm.mid) === sessionStorage.getItem("mId")) {
+        await commit('setItem', {
+          field: 'isWriter',
+          item: true
+        })
+      } else {
+        await commit('setItem', {
+          field: 'isWriter',
+          item: false
+        })
+      }
+    }
   },
 }

@@ -32,13 +32,12 @@
   </form>
 </template>
 <script>
-import {mapGetters} from "vuex";
-
 export default {
+  name: 'BoardWriteForm',
   props: {
     type: {
       type: String,
-      default: ''
+      default: '',
     },
   },
   computed: {
@@ -81,7 +80,7 @@ export default {
     this.$store.commit('board/setItem', {
       field: 'boardForm',
       subField: 'files',
-      item: []
+      item: [],
     })
   },
   methods: {
@@ -102,9 +101,12 @@ export default {
       this.$store.commit('board/setItem', {
         field: 'boardForm',
         subField: 'files',
-        item: [e.target.files[0], ...this.$store.getters["board/getItem"].boardForm.files]
+        item: [
+          e.target.files[0],
+          ...this.$store.getters['board/getItem'].boardForm.files,
+        ],
       })
     },
-  }
+  },
 }
 </script>

@@ -17,8 +17,8 @@
         />
       </tbody>
     </table>
-    <NuxtLink :to="{ name: 'board-write' }" tag="button" class="btn btn-primary"
-      >글쓰기</NuxtLink
+    <NuxtLink :to="{ name: 'board-write' }"
+      ><button class="btn btn-primary">글쓰기</button></NuxtLink
     >
   </div>
 </template>
@@ -28,6 +28,7 @@ import { mapGetters } from 'vuex'
 import BoardListItem from './BoardListItem.vue'
 
 export default {
+  name: 'BoardList',
   components: { BoardListItem },
   computed: {
     ...mapGetters({

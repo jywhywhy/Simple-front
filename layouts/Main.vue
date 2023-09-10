@@ -12,8 +12,8 @@ import TopNav from '../components/common/TopNav.vue'
 
 export default {
   components: { TopNav },
-  beforeCreate() {
-    this.$store.dispatch('member/authentication')
+  async mounted() {
+    await this.$store.dispatch('member/authentication')
   },
 }
 </script>

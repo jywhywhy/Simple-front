@@ -57,17 +57,17 @@ export const actions = {
         commit('setItem', {
           field: 'replyForm',
           subField: 'rcontent',
-          item: ''
+          item: '',
         })
         commit('setItem', {
           field: 'replyForm',
           subField: 'rparentId',
-          item: ''
+          item: '',
         })
         commit('setItem', {
           field: 'replyForm',
           subField: 'rdept',
-          item: 0
+          item: 0,
         })
         dispatch('setList', item.bid)
       })

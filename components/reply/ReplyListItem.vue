@@ -23,6 +23,7 @@
 </template>
 <script>
 export default {
+  name: 'ReplyListItem',
   props: {
     item: {
       type: Object,

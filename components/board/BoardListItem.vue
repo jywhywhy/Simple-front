@@ -1,14 +1,15 @@
 <template>
   <tr>
     <td>{{ idx + 1 }}</td>
-    <NuxtLink :to="`/board/detail/${item.bid}`" tag="td">{{
+    <td><NuxtLink :to="`/board/detail/${item.bid}`">{{
       item.btitle
-    }}</NuxtLink>
+    }}</NuxtLink></td>
     <td>{{ item.bcontent }}</td>
   </tr>
 </template>
 <script>
 export default {
+  name: 'BoardListItem',
   props: {
     item: {
       type: Object,

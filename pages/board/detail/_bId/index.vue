@@ -21,12 +21,13 @@ export default {
       item: bId,
     })
   },
-  mounted() {
-    this.$store.commit('reply/setItem', {
+  async mounted() {
+    await this.$store.commit('reply/setItem', {
       field: 'replyForm',
       subField: 'mid',
       item: sessionStorage.getItem('mId'),
     })
+    await this.$store.dispatch('board/writer')
   },
 }
 </script>

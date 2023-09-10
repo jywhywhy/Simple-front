@@ -13,6 +13,7 @@ import { mapGetters } from 'vuex'
 import ReplyListItem from './ReplyListItem.vue'
 
 export default {
+  name: 'ReplyList',
   components: { ReplyListItem },
   computed: {
     ...mapGetters({
