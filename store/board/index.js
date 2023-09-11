@@ -128,11 +128,13 @@ export const actions = {
   async writer({ state, commit }) {
     if (typeof window !== 'undefined') {
       if (String(state.item.boardForm.mid) === sessionStorage.getItem("mId")) {
+        console.log("if")
         await commit('setItem', {
           field: 'isWriter',
           item: true
         })
       } else {
+        console.log("else")
         await commit('setItem', {
           field: 'isWriter',
           item: false
