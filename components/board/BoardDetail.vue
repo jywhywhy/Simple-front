@@ -6,10 +6,12 @@
     <div>조회수 : {{ item.bviews }}</div>
     <div>작성일 : {{ item.bcreateDate }}</div>
     <div>내용 : {{ item.bcontent }}</div>
-    <NuxtLink v-if="isWriter" :to="`/board/update/${item.bid}`"
-      ><button>수정</button></NuxtLink
-    >
-    <button @click="deleteBoard()">삭제</button>
+    <template v-if="isWriter">
+      <NuxtLink :to="`/board/update/${item.bid}`"
+        ><button>수정</button></NuxtLink
+      >
+      <button @click="deleteBoard()">삭제</button>
+    </template>
   </div>
 </template>
 <script>
@@ -20,14 +22,13 @@ export default {
   computed: {
     ...mapGetters({
       item: 'board/getItemBoardForm',
-      isWriter: 'board/isWriter'
+      isWriter: 'board/isWriter',
     }),
   },
-
   methods: {
     deleteBoard() {
       this.$store.dispatch('board/delete', this.item.bid)
     },
-  }
+  },
 }
 </script>

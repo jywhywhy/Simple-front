@@ -16,12 +16,14 @@
           v-model="rcontent"
           rows="5"
         ></textarea>
-        <button @click="writeReReply">답글</button>
+        <button v-if="isAuthentication" @click="writeReReply">답글</button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ReplyListItem',
   props: {
@@ -54,6 +56,9 @@ export default {
         })
       },
     },
+    ...mapGetters({
+      isAuthentication: 'member/getIsAuthentication',
+    }),
   },
   methods: {
     writeReReply() {

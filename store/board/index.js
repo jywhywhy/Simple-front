@@ -7,7 +7,7 @@ export const state = () => ({
       bcontent: '',
       files: [],
     },
-    isWriter: ''
+    isWriter: '',
   },
   list: [],
 })
@@ -15,8 +15,10 @@ export const state = () => ({
 export const getters = {
   getList: (state) => state.list,
   getItem: (state) => state.item,
+  getPaging: (state) => state.list,
   getItemBoardForm: (state) => state.item.boardForm,
-  isWriter: (state) => state.item.isWriter
+  isWriter: (state) => state.item.isWriter,
+  getFiles: (state) => state.item.boardForm.files,
 }
 
 export const mutations = {
@@ -67,9 +69,9 @@ export const actions = {
         alert('글작성 실패')
       })
   },
-  async setList({ commit }) {
+  async setList({ commit }, pageIndex) {
     await this.$axios
-      .get('/api/board/list')
+      .get('/api/board/list', { params: { pageIndex } })
       .then((res) => {
         commit('setList', res.data)
       })
@@ -127,17 +129,17 @@ export const actions = {
   },
   async writer({ state, commit }) {
     if (typeof window !== 'undefined') {
-      if (String(state.item.boardForm.mid) === sessionStorage.getItem("mId")) {
-        console.log("if")
+      if (String(state.item.boardForm.mid) === sessionStorage.getItem('mId')) {
+        console.log('if')
         await commit('setItem', {
           field: 'isWriter',
-          item: true
+          item: true,
         })
       } else {
-        console.log("else")
+        console.log('else')
         await commit('setItem', {
           field: 'isWriter',
-          item: false
+          item: false,
         })
       }
     }

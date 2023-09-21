@@ -1,9 +1,9 @@
 <template>
   <tr>
-    <td>{{ idx + 1 }}</td>
-    <td><NuxtLink :to="`/board/detail/${item.bid}`">{{
-      item.btitle
-    }}</NuxtLink></td>
+    <td>{{ item.bid }}</td>
+    <td>
+      <NuxtLink :to="`/board/detail/${item.bid}`">{{ item.btitle }}</NuxtLink>
+    </td>
     <td>{{ item.bcontent }}</td>
   </tr>
 </template>

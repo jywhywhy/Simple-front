@@ -27,11 +27,16 @@
         drop-placeholder="Drop file here..."
         @change="addFile($event)"
       ></b-form-file>
+      <span v-for="(file, idx) in files" :key="idx">
+        {{ file.name }}, &nbsp;&nbsp;
+      </span>
     </div>
     <button class="btn btn-success">{{ buttonName }}</button>
   </form>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'BoardWriteForm',
   props: {
@@ -75,6 +80,9 @@ export default {
           return ''
       }
     },
+    ...mapGetters({
+      files: 'board/getFiles',
+    }),
   },
   mounted() {
     this.$store.commit('board/setItem', {

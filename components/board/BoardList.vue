@@ -1,5 +1,8 @@
 <template>
   <div class="text-center">
+    <NuxtLink v-if="isAuthentication" :to="{ name: 'board-write' }"
+      ><button class="btn btn-primary mb-3">글쓰기</button></NuxtLink
+    >
     <table class="table table-success">
       <thead>
         <tr>
@@ -10,16 +13,13 @@
       </thead>
       <tbody>
         <BoardListItem
-          v-for="(item, idx) in list"
+          v-for="(item, idx) in list.list"
           :key="idx"
           :item="item"
           :idx="idx"
         />
       </tbody>
     </table>
-    <NuxtLink :to="{ name: 'board-write' }"
-      ><button class="btn btn-primary">글쓰기</button></NuxtLink
-    >
   </div>
 </template>
 
@@ -32,6 +32,7 @@ export default {
   components: { BoardListItem },
   computed: {
     ...mapGetters({
+      isAuthentication: 'member/getIsAuthentication',
       list: 'board/getList',
     }),
   },
