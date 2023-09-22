@@ -76,4 +76,13 @@ export const actions = {
         alert('댓글작성 실패')
       })
   },
+  delete({ dispatch }, rId) {
+    this.$axios.delete(`/api/reply/delete/${rId}`)
+      .then((res) => {
+        dispatch('setList', 0)
+      })
+      .catch((e) => {
+        console.log('댓글삭제 실패')
+      })
+  },
 }

@@ -58,7 +58,7 @@ export default {
     },
     ...mapGetters({
       isAuthentication: 'member/getIsAuthentication',
-    }),
+    })
   },
   methods: {
     writeReReply() {
