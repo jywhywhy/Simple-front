@@ -21,8 +21,8 @@ export default {
   name: 'BoardDetail',
   computed: {
     ...mapGetters({
-      item: 'board/getItemBoardForm',
       isWriter: 'board/isWriter',
+      item: 'board/getItemBoardForm',
     }),
   },
   methods: {

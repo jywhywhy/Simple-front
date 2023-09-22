@@ -13,9 +13,8 @@ export const state = () => ({
 })
 
 export const getters = {
-  getList: (state) => state.list,
   getItem: (state) => state.item,
-  getPaging: (state) => state.list,
+  getList: (state) => state.list,
   getItemBoardForm: (state) => state.item.boardForm,
   isWriter: (state) => state.item.isWriter,
   getFiles: (state) => state.item.boardForm.files,

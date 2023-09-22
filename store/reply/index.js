@@ -40,9 +40,10 @@ export const actions = {
       },
     })
   },
-  async setList({ commit, getters }, bId) {
+  async setList({ commit, getters }, pageIndex) {
+    const bId = getters.getItem.replyForm.bid
     await this.$axios
-      .get(`/api/reply/list/${bId}`)
+      .get(`/api/reply/list/${bId}`, { params: { pageIndex } })
       .then((res) => {
         commit('setList', res.data)
       })
@@ -69,7 +70,7 @@ export const actions = {
           subField: 'rdept',
           item: 0,
         })
-        dispatch('setList', item.bid)
+        dispatch('setList', 0)
       })
       .catch((e) => {
         alert('댓글작성 실패')

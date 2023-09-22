@@ -13,27 +13,29 @@
       </thead>
       <tbody>
         <BoardListItem
-          v-for="(item, idx) in list.list"
+          v-for="(item, idx) in paging.list"
           :key="idx"
           :item="item"
           :idx="idx"
         />
       </tbody>
     </table>
+    <PageNav :paging="paging" page-type="board" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import BoardListItem from './BoardListItem.vue'
+import PageNav from '@/components/pagenation/PageNav.vue'
 
 export default {
   name: 'BoardList',
-  components: { BoardListItem },
+  components: { PageNav, BoardListItem },
   computed: {
     ...mapGetters({
       isAuthentication: 'member/getIsAuthentication',
-      list: 'board/getList',
+      paging: 'board/getList',
     }),
   },
 }

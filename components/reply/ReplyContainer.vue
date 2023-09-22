@@ -11,7 +11,7 @@ import ReplyList from './ReplyList.vue'
 
 export default {
   name: 'ReplyContainer',
-  components: { ReplyList, ReplyInput },
+  components: {ReplyList, ReplyInput },
   computed: {
     ...mapGetters({
       isAuthentication: 'member/getIsAuthentication',
