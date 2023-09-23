@@ -77,7 +77,8 @@ export const actions = {
       })
   },
   delete({ dispatch }, rId) {
-    this.$axios.delete(`/api/reply/delete/${rId}`)
+    this.$axios
+      .delete(`/api/reply/delete/${rId}`)
       .then((res) => {
         dispatch('setList', 0)
       })

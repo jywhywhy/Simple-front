@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <div>번호 : {{ item.bid }}</div>
-    <div>작성자 : {{ item.mid }}</div>
-    <div>제목 : {{ item.btitle }}</div>
-    <div>조회수 : {{ item.bviews }}</div>
-    <div>작성일 : {{ item.bcreateDate }}</div>
-    <div>내용 : {{ item.bcontent }}</div>
-    <template v-if="isWriter">
+  <div class="container mt-5">
+    <h1 class="display-4">{{ item.btitle }}</h1>
+    <p class="lead">{{ item.bcontent }}</p>
+    <p><strong>작성자:</strong> {{ item.mname }}</p>
+    <p><strong>작성일:</strong> {{ item.bcreateDate }}</p>
+    <p><strong>조회수:</strong> {{ item.bviews }}</p>
+    <div v-if="isWriter" class="btn-group">
       <NuxtLink :to="`/board/update/${item.bid}`"
-        ><button>수정</button></NuxtLink
+        ><a href="#" class="btn btn-warning">수정</a></NuxtLink
       >
-      <button @click="deleteBoard()">삭제</button>
-    </template>
+      <a href="javascript:void(0)" class="btn btn-danger" @click="deleteBoard()"
+        >삭제</a
+      >
+    </div>
+    <ReplyContainer />
   </div>
 </template>
 <script>
@@ -27,8 +29,24 @@ export default {
   },
   methods: {
     deleteBoard() {
-      this.$store.dispatch('board/delete', this.item.bid)
+      if (confirm('게시물을 삭제하시겠습니까?')) {
+        this.$store.dispatch('board/delete', this.item.bid)
+      }
     },
   },
 }
 </script>
+<style scoped>
+body {
+  background-color: #f8f9fa;
+}
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.btn-group {
+  margin-top: 20px;
+}
+</style>

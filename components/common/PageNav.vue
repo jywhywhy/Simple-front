@@ -1,14 +1,10 @@
 <template>
-  <nav v-if="paging.totalCount > 0" aria-label="...">
+  <nav v-if="paging.totalCount > 0" aria-label="..." class="mt-3">
     <ul class="pagination">
-      <li
-        class="page-item"
-        :class="{ disabled: paging.startPage === 1 }"
-        @click="movePage(1)"
-      >
-        <span class="page-link">&lt;&lt;</span>
+      <li class="page-item" :class="{ disabled: paging.startPage === 1 }">
+        <span class="page-link" @click="movePage(1)">&lt;&lt;</span>
       </li>
-      <li class="page-item" :class="{ disabled: paging.pageIndex === 1 }">
+      <li class="page-item" :class="{ disabled: paging.startPage === 1 }">
         <span class="page-link" @click="movePage(prevPage)">&lt;</span>
       </li>
       <li
@@ -25,19 +21,16 @@
           {{ pageIndex }}
         </a>
       </li>
-      <li
-        class="page-item"
-        :class="{ disabled: isLastPages }"
-        @click="movePage(nextPage)"
-      >
-        <span class="page-link">&gt;</span>
+      <li class="page-item" :class="{ disabled: isLastPages }">
+        <span class="page-link" @click="movePage(nextPage)">&gt;</span>
       </li>
-      <li
-        class="page-item"
-        :class="{ disabled: isLastPages }"
-        @click="movePage(lastPage)"
-      >
-        <a class="page-link" href="#">&gt;&gt;</a>
+      <li class="page-item" :class="{ disabled: isLastPages }">
+        <a
+          class="page-link"
+          href="javascript:void(0)"
+          @click="movePage(lastPage)"
+          >&gt;&gt;</a
+        >
       </li>
     </ul>
   </nav>
@@ -55,8 +48,8 @@ export default {
     },
     pageType: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
     prevPage() {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p class="mt-5">댓글 :</p>
     <ReplyInput v-if="isAuthentication" />
     <ReplyList />
   </div>
@@ -11,7 +12,7 @@ import ReplyList from './ReplyList.vue'
 
 export default {
   name: 'ReplyContainer',
-  components: {ReplyList, ReplyInput },
+  components: { ReplyList, ReplyInput },
   computed: {
     ...mapGetters({
       isAuthentication: 'member/getIsAuthentication',

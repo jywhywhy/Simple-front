@@ -1,14 +1,18 @@
 <template>
-  <div class="text-center">
-    <NuxtLink v-if="isAuthentication" :to="{ name: 'board-write' }"
-      ><button class="btn btn-primary mb-3">글쓰기</button></NuxtLink
-    >
-    <table class="table table-success">
+  <div class="container mt-5">
+    <div class="add-button mb-3">
+      <NuxtLink v-if="isAuthentication" :to="{ name: 'board-write' }"
+        ><a href="javascript:void(0)" class="btn btn-primary"
+          >글쓰기</a
+        ></NuxtLink
+      >
+    </div>
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>내용</th>
+          <th scope="col">게시물 제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">작성일</th>
         </tr>
       </thead>
       <tbody>
@@ -23,11 +27,10 @@
     <PageNav :paging="paging" page-type="board" />
   </div>
 </template>
-
 <script>
 import { mapGetters } from 'vuex'
 import BoardListItem from './BoardListItem.vue'
-import PageNav from '@/components/pagenation/PageNav.vue'
+import PageNav from '@/components/common/PageNav.vue'
 
 export default {
   name: 'BoardList',
@@ -40,3 +43,17 @@ export default {
   },
 }
 </script>
+<style scoped>
+body {
+  background-color: #f8f9fa;
+}
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.add-button {
+  text-align: right;
+}
+</style>

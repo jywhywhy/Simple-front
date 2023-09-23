@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1 class="text-center">메인</h1>
+  <div class="text-center">
+    <img src="img.png" />
   </div>
 </template>
 
@@ -9,3 +9,4 @@ export default {
   layout: 'Main',
 }
 </script>
+<style scoped></style>

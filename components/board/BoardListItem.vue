@@ -1,10 +1,12 @@
 <template>
   <tr>
-    <td>{{ item.bid }}</td>
     <td>
-      <NuxtLink :to="`/board/detail/${item.bid}`">{{ item.btitle }}</NuxtLink>
+      <NuxtLink :to="`/board/detail/${item.bid}`"
+        ><a href="javascript:void(0)">{{ item.btitle }}</a></NuxtLink
+      >
     </td>
-    <td>{{ item.bcontent }}</td>
+    <td>{{ item.mname }}</td>
+    <td>{{ item.bcreateDate }}</td>
   </tr>
 </template>
 <script>

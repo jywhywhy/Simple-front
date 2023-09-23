@@ -106,7 +106,6 @@ export const actions = {
     const boardForm = getters.getItem.boardForm
     const formData = new FormData()
     formData.append('bId', boardForm.bid)
-    alert(boardForm.bid)
     formData.append('mId', sessionStorage.getItem('mId'))
     formData.append('bTitle', boardForm.btitle)
     formData.append('bContent', boardForm.bcontent)

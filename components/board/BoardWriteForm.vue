@@ -1,38 +1,43 @@
 <template>
-  <form @submit.prevent="write()">
-    <label for="bTitle" class="form-label">title</label>
-    <input
-      id="btitle"
-      ref="btitle"
-      v-model="btitle"
-      type="text"
-      class="form-control"
-      placeholder="제목을 입력하세요."
-    />
-    <label for="bContent" class="form-label">content</label>
-    <textarea
-      id="bcontent"
-      ref="bcontent"
-      v-model="bcontent"
-      type="text"
-      rows="5"
-      class="form-control"
-      placeholder="내용을 입력하세요."
-    />
-    <div>
-      <!-- Styled -->
-      <b-form-file
-        class="my-3"
-        placeholder="Choose a file or drop it here..."
-        drop-placeholder="Drop file here..."
-        @change="addFile($event)"
-      ></b-form-file>
-      <span v-for="(file, idx) in files" :key="idx">
-        {{ file.name }}, &nbsp;&nbsp;
-      </span>
-    </div>
-    <button class="btn btn-success">{{ buttonName }}</button>
-  </form>
+  <div class="container mt-5" @submit.prevent="write()">
+    <form>
+      <div class="form-group">
+        <label for="btitle">제목:</label>
+        <input
+          id="btitle"
+          ref="btitle"
+          v-model="btitle"
+          type="text"
+          class="form-control"
+          placeholder="제목을 입력하세요."
+        />
+      </div>
+      <div class="form-group">
+        <label for="bcontent">내용:</label>
+        <textarea
+          id="bcontent"
+          ref="bcontent"
+          v-model="bcontent"
+          class="form-control"
+          rows="4"
+          placeholder="내용을 입력하세요"
+        ></textarea>
+      </div>
+      <div>
+        <b-form-file
+          class="my-3"
+          placeholder="Choose a file or drop it here..."
+          drop-placeholder="Drop file here..."
+          @change="addFile($event)"
+        ></b-form-file>
+        <span v-for="(file, idx) in files" :key="idx">
+          {{ file.name }}, &nbsp;&nbsp;
+        </span>
+      </div>
+      <div></div>
+      <button type="submit" class="btn btn-primary">{{ buttonName }}</button>
+    </form>
+  </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -118,3 +123,17 @@ export default {
   },
 }
 </script>
+<style scoped>
+body {
+  background-color: #f8f9fa;
+}
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.comment-button {
+  text-align: right;
+}
+</style>

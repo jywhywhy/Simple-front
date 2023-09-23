@@ -1,14 +1,14 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
     <NuxtLink to="/" tag="b-navbar-brand" href="#" class="nav_title"
-      >title</NuxtLink
+      >SIMPLE</NuxtLink
     >
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <NuxtLink to="/board/list" tag="b-nav-item">게시판</NuxtLink>
+        <NuxtLink to="/board/list" tag="b-nav-item">BOARD</NuxtLink>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -31,9 +31,6 @@
           </template>
           <NuxtLink v-if="!isAuthentication" to="/sign" tag="b-dropdown-item"
             >Sign In</NuxtLink
-          >
-          <b-dropdown-item v-if="isAuthentication" href="#"
-            >Profile</b-dropdown-item
           >
           <b-dropdown-item v-if="isAuthentication" href="#" @click="signOut()"
             >Sign Out</b-dropdown-item

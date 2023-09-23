@@ -1,3 +1,4 @@
+<script>
 export default {
   fetch(context) {
     context.redirect(301, {
@@ -5,3 +6,4 @@ export default {
     })
   },
 }
+</script>

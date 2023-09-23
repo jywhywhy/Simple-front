@@ -1,14 +1,21 @@
 <template>
-  <div>
-    <b-form-textarea
-      id="rcontent"
-      ref="rcontent"
-      v-model="rcontent"
-      placeholder="Enter something..."
-      rows="3"
-      max-rows="6"
-    ></b-form-textarea>
-    <b-button class="btn-success" @click="write()">작성</b-button>
+  <div class="comment-form">
+    <form>
+      <div class="form-group">
+        <textarea
+          id="rcontent"
+          ref="rcontent"
+          v-model="rcontent"
+          class="form-control"
+          rows="3"
+        ></textarea>
+      </div>
+      <div class="comment-button">
+        <button type="submit" class="btn btn-primary" @click="write()">
+          댓글 작성
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 <script>
@@ -40,3 +47,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+.comment-form {
+  margin-top: 20px;
+}
+.comment-button {
+  text-align: right;
+}
+</style>

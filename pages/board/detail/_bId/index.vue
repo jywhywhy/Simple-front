@@ -1,15 +1,13 @@
 <template>
   <div>
     <BoardDetail />
-    <ReplyContainer />
   </div>
 </template>
 <script>
 import BoardDetail from '../../../../components/board/BoardDetail.vue'
-import ReplyContainer from '../../../../components/reply/ReplyContainer.vue'
 
 export default {
-  components: { ReplyContainer, BoardDetail },
+  components: { BoardDetail },
   layout: 'Main',
   async asyncData({ store, params }) {
     const { bId } = params
@@ -21,7 +19,7 @@ export default {
     })
     await store.dispatch('reply/setList')
   },
-  async mounted() {
+  async created() {
     await this.$store.dispatch('board/writer')
     await this.$store.commit('reply/setItem', {
       field: 'replyForm',
